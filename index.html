@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voltage Drop Calculator | AS/NZS 3000, AS 3008, NEC, IS 732, SANS 10142 | Free Tool</title>
+    <meta name="description" content="Free voltage drop calculator built to AS/NZS 3000 &amp; AS 3008 (AU), NEC (US), IS 732 (India) and SANS 10142 (South Africa). Single phase, three phase, DC, series runs and motor starting. Ampacity checker, worked examples, no sign-up.">
+    <link rel="canonical" href="https://voltagedrop.com.au/">
+    <meta property="og:title" content="Voltage Drop Calculator — AS/NZS 3000, AS 3008, NEC, IS 732, SANS 10142">
+    <meta property="og:description" content="Free voltage drop calculator built to AS/NZS 3000 &amp; AS 3008 (AU), NEC (US), IS 732 (India) and SANS 10142 (South Africa). Single phase, three phase, DC, series runs and motor starting.">
+    <meta property="og:url" content="https://voltagedrop.com.au/">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409689781104144" crossorigin="anonymous"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-315J8CF00W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-315J8CF00W');
+    </script>
+
+    <!-- FAQ Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is voltage drop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Voltage drop is the reduction in voltage that occurs as electrical current flows through a conductor. Every cable has resistance, and when current flows through that resistance, some voltage is lost as heat. The greater the current, the longer the cable run, and the smaller the cable cross-section, the more voltage is lost."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum allowed voltage drop in Australia?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under AS/NZS 3000 (Australian Wiring Rules), the maximum allowable voltage drop from the point of supply to any point in the installation is 5% of the nominal supply voltage. For a 230V single phase circuit, that is 11.5V. Many designers aim for 3% or less for longer runs. Some equipment manufacturers specify lower limits — always check the equipment specifications."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate voltage drop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For single phase AC and DC circuits: VD = 2 × L × I × ρ / A. For three phase AC circuits: VD = √3 × L × I × ρ / A. Where L is the one-way cable length in metres, I is the current in amps, ρ (rho) is the resistivity of the conductor (0.0175 Ω·mm²/m for copper, 0.028 for aluminium), and A is the cable cross-sectional area in mm²."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does voltage drop matter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Excessive voltage drop causes equipment to run below its rated voltage, which can lead to: motors overheating and failing prematurely, lights appearing dim, electronic equipment malfunctioning or tripping protection, increased current draw (motors draw more current at lower voltage), and in extreme cases, overheating of cables and fire risk."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What cable size should I use to reduce voltage drop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To reduce voltage drop, you can use a larger cable cross-section (e.g. going from 2.5mm² to 4mm² or 6mm²), shorten the cable run if possible, reduce the load current, or split the circuit into multiple shorter runs. Use the cable comparison table in our calculator to quickly see the voltage drop for all common cable sizes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between single phase and three phase voltage drop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For single phase circuits, current travels down the active conductor and returns via the neutral, so the total conductor length is 2 × the one-way run. For three phase circuits, the three phases partially cancel each other out, so the formula uses √3 (approximately 1.732) instead of 2. This means a three phase circuit has about 13% less voltage drop than a single phase circuit of the same length and current."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is motor starting voltage drop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When an electric motor starts, it draws a large inrush current — typically 5 to 7 times the full load current for direct-on-line (DOL) starters. This high starting current causes a momentary voltage drop that can affect other equipment on the same supply. Australian standard AS/NZS 3000 requires that voltage drop during motor starting does not cause other equipment to malfunction. Soft starters and VFDs reduce starting current and voltage drop."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is copper or aluminium cable better for long runs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Copper has a lower resistivity (0.0175 Ω·mm²/m) compared to aluminium (0.028 Ω·mm²/m), meaning copper produces about 37% less voltage drop for the same cable size. However, aluminium is cheaper and lighter, making it common for large main switchboard feeders and overhead lines. For most sub-circuits in buildings, copper is standard."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.6; }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 100%);
+            color: white;
+            padding: 28px 20px 22px;
+            text-align: center;
+        }
+        .header-logo { font-size: 2.2rem; margin-bottom: 6px; }
+        header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 6px; }
+        header p { font-size: 1rem; opacity: 0.88; }
+
+        /* ===== NAV ===== */
+        nav { background: #0a3655; padding: 10px 20px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+        nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; padding: 4px 0; }
+        nav a:hover, nav a.active { color: #38bdf8; }
+
+        /* ===== LAYOUT ===== */
+        .page-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 16px 48px; display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+        @media (max-width: 860px) { .page-wrap { grid-template-columns: 1fr; } }
+
+        .main-col {}
+        .side-col {}
+
+        /* ===== CARDS ===== */
+        .card { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 28px; margin-bottom: 20px; }
+        .card-title { font-size: 1.05rem; font-weight: 700; color: #0c4a6e; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+        /* ===== REGION TOGGLE ===== */
+        .region-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .region-btn {
+            padding: 7px 14px; border: 2px solid #e2e8f0; border-radius: 8px;
+            background: white; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+            color: #4a5568; transition: all 0.15s;
+        }
+        .region-btn:hover { border-color: #0284c7; color: #0284c7; }
+        .region-btn.active { background: #0284c7; border-color: #0284c7; color: white; }
+
+        /* ===== MODE TABS ===== */
+        .mode-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 0; }
+        .mode-tab {
+            padding: 9px 16px; border: none; background: none; cursor: pointer;
+            font-size: 0.85rem; font-weight: 600; color: #718096;
+            border-bottom: 3px solid transparent; margin-bottom: -2px;
+            transition: all 0.15s; border-radius: 6px 6px 0 0;
+        }
+        .mode-tab:hover { color: #0284c7; background: #f0f9ff; }
+        .mode-tab.active { color: #0284c7; border-bottom-color: #0284c7; }
+
+        /* ===== FORM GRID ===== */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+
+        .field { display: flex; flex-direction: column; gap: 5px; }
+        .field.full { grid-column: 1 / -1; }
+        label { font-size: 0.8rem; font-weight: 600; color: #2d3748; }
+        label span { font-weight: 400; color: #718096; }
+
+        input[type="number"], select {
+            width: 100%; padding: 9px 12px;
+            border: 1.5px solid #e2e8f0; border-radius: 8px;
+            font-size: 0.92rem; color: #1a202c;
+            background: #f7fafc; transition: border-color 0.15s;
+            font-family: inherit;
+        }
+        input[type="number"]:focus, select:focus {
+            outline: none; border-color: #0284c7; background: white;
+        }
+
+        .radio-group { display: flex; gap: 16px; flex-wrap: wrap; }
+        .radio-label { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; color: #4a5568; cursor: pointer; }
+        .radio-label input { accent-color: #0284c7; width: 16px; height: 16px; cursor: pointer; }
+
+        /* ===== SERIES RUNS ===== */
+        .series-runs { display: flex; flex-direction: column; gap: 12px; }
+        .run-row { display: grid; grid-template-columns: 80px 1fr 1fr 1fr 32px; gap: 8px; align-items: center; }
+        .run-label { font-size: 0.82rem; font-weight: 600; color: #4a5568; }
+        .run-row input, .run-row select { padding: 7px 10px; font-size: 0.82rem; }
+        .remove-run { background: #fee2e2; border: none; border-radius: 6px; color: #dc2626; cursor: pointer; font-size: 1rem; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+        .add-run-btn { background: #f0f9ff; border: 1.5px dashed #0284c7; border-radius: 8px; color: #0284c7; font-size: 0.85rem; font-weight: 600; padding: 9px; cursor: pointer; text-align: center; margin-top: 4px; }
+        .add-run-btn:hover { background: #e0f2fe; }
+        .run-header { display: grid; grid-template-columns: 80px 1fr 1fr 1fr 32px; gap: 8px; }
+        .run-header span { font-size: 0.75rem; font-weight: 600; color: #718096; text-transform: uppercase; letter-spacing: 0.3px; }
+
+        /* ===== CALC BUTTON ===== */
+        .calc-btn {
+            width: 100%; padding: 13px; margin-top: 18px;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white; border: none; border-radius: 10px;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: opacity 0.2s; letter-spacing: 0.3px;
+        }
+        .calc-btn:hover { opacity: 0.9; }
+
+        /* ===== RESULTS ===== */
+        .result-hidden { display: none; }
+
+        .result-pass { background: #f0fdf4; border: 2px solid #16a34a; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .result-fail { background: #fef2f2; border: 2px solid #dc2626; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .result-warn { background: #fffbeb; border: 2px solid #d97706; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+
+        .result-status { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+        .result-pass .result-status { color: #16a34a; }
+        .result-fail .result-status { color: #dc2626; }
+        .result-warn .result-status { color: #d97706; }
+
+        .result-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        @media (max-width: 400px) { .result-grid { grid-template-columns: 1fr; } }
+
+        .result-stat { background: white; border-radius: 8px; padding: 12px 14px; }
+        .result-stat .stat-label { font-size: 0.75rem; font-weight: 600; color: #718096; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 3px; }
+        .result-stat .stat-val { font-size: 1.25rem; font-weight: 700; color: #1a202c; }
+        .result-stat .stat-unit { font-size: 0.8rem; color: #718096; margin-left: 2px; }
+
+        .formula-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; margin-top: 12px; }
+        .formula-box code { font-size: 0.85rem; color: #0c4a6e; font-family: 'Courier New', monospace; }
+
+        /* ===== AMPACITY ===== */
+        .ampacity-ok { color: #16a34a; font-weight: 600; }
+        .ampacity-warn { color: #dc2626; font-weight: 600; }
+        .ampacity-box { background: #f0f9ff; border: 1.5px solid #38bdf8; border-radius: 8px; padding: 12px 14px; margin-top: 12px; font-size: 0.88rem; }
+
+        /* ===== CABLE COMPARISON TABLE ===== */
+        .cable-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin-top: 8px; }
+        .cable-table th { background: #0c4a6e; color: white; padding: 8px 10px; text-align: left; font-weight: 600; font-size: 0.78rem; }
+        .cable-table td { padding: 7px 10px; border-bottom: 1px solid #e2e8f0; color: #4a5568; }
+        .cable-table tr:hover td { background: #f0f9ff; }
+        .cable-table tr.recommended td { background: #dbeafe; font-weight: 600; color: #1a202c; }
+        .cable-table .pass { color: #16a34a; font-weight: 600; }
+        .cable-table .fail { color: #dc2626; font-weight: 600; }
+        .cable-table .warn { color: #d97706; font-weight: 600; }
+
+        /* ===== SERIES RESULTS ===== */
+        .series-result-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin-top: 8px; }
+        .series-result-table th { background: #0c4a6e; color: white; padding: 8px 10px; text-align: left; font-size: 0.78rem; }
+        .series-result-table td { padding: 7px 10px; border-bottom: 1px solid #e2e8f0; }
+        .series-result-table tr.total-row td { font-weight: 700; background: #f0f4f8; color: #1a202c; }
+
+        /* ===== PRINT BUTTON ===== */
+        .print-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 9px 16px; background: white;
+            border: 1.5px solid #0284c7; border-radius: 8px;
+            color: #0284c7; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: all 0.15s; margin-left: auto;
+        }
+        .print-btn:hover { background: #e0f2fe; }
+        .results-header { display: flex; align-items: center; margin-bottom: 12px; }
+        .results-header .card-title { margin-bottom: 0; flex: 1; }
+
+        /* ===== SIDEBAR ===== */
+        .side-card { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 16px; }
+        .side-card h3 { font-size: 0.9rem; font-weight: 700; color: #0c4a6e; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .side-card p, .side-card li { font-size: 0.82rem; color: #4a5568; margin-bottom: 6px; line-height: 1.55; }
+        .side-card ul { padding-left: 16px; }
+        .side-card table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+        .side-card th { background: #f0f4f8; color: #2d3748; padding: 5px 8px; text-align: left; font-weight: 600; }
+        .side-card td { padding: 5px 8px; border-bottom: 1px solid #f0f4f8; color: #4a5568; }
+
+        .buy-links { display: flex; flex-direction: column; gap: 6px; }
+        .buy-link { display: block; padding: 8px 12px; background: #fff7ed; border: 1.5px solid #fb923c; border-radius: 8px; color: #9a3412; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-align: center; transition: all 0.15s; }
+        .buy-link:hover { background: #fed7aa; }
+
+        .standard-badge { display: inline-block; background: #0c4a6e; color: white; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+
+        /* ===== WORKED EXAMPLES ===== */
+        .examples-section { margin-top: 0; }
+        .example-card { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 16px; }
+        .example-tag { display: inline-block; background: #0284c7; color: white; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; letter-spacing: 0.3px; }
+        .example-card h3 { font-size: 1rem; font-weight: 700; color: #0c4a6e; margin-bottom: 10px; }
+        .example-card p { font-size: 0.88rem; color: #4a5568; margin-bottom: 8px; }
+        .example-steps { background: #f0f9ff; border-radius: 8px; padding: 14px 16px; margin-top: 10px; }
+        .example-steps p { font-size: 0.85rem; margin-bottom: 5px; }
+        .example-steps .step-result { font-weight: 700; color: #0284c7; font-size: 0.95rem; margin-top: 6px; }
+
+        /* ===== FAQ ===== */
+        .faq-section { }
+        .faq-item { background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 10px; overflow: hidden; }
+        .faq-question { padding: 16px 20px; font-size: 0.92rem; font-weight: 600; color: #1a202c; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .faq-question:hover { background: #f0f9ff; }
+        .faq-arrow { color: #0284c7; font-size: 1rem; transition: transform 0.2s; flex-shrink: 0; }
+        .faq-answer { display: none; padding: 0 20px 16px; font-size: 0.88rem; color: #4a5568; line-height: 1.65; border-top: 1px solid #e2e8f0; padding-top: 14px; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-item.open .faq-answer { display: block; }
+
+        /* ===== ARTICLE ===== */
+        .article-section { }
+        .article-section h2 { font-size: 1.2rem; font-weight: 700; color: #0c4a6e; margin: 24px 0 10px; }
+        .article-section h3 { font-size: 1rem; font-weight: 700; color: #1a2a4a; margin: 18px 0 8px; }
+        .article-section p { font-size: 0.9rem; color: #4a5568; margin-bottom: 12px; line-height: 1.7; }
+        .article-section ul { padding-left: 20px; margin-bottom: 12px; }
+        .article-section li { font-size: 0.9rem; color: #4a5568; margin-bottom: 6px; line-height: 1.6; }
+        .article-section .formula { background: #f0f9ff; border-left: 4px solid #0284c7; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 0.9rem; color: #0c4a6e; }
+        .article-section table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 12px 0; }
+        .article-section th { background: #0c4a6e; color: white; padding: 8px 12px; text-align: left; }
+        .article-section td { padding: 7px 12px; border-bottom: 1px solid #e2e8f0; color: #4a5568; }
+        .article-section tr:nth-child(even) td { background: #f8fafc; }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-heading { font-size: 1.3rem; font-weight: 700; color: #0c4a6e; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+
+        /* ===== FOOTER ===== */
+        footer { background: #0a3655; color: rgba(255,255,255,0.6); text-align: center; padding: 24px 16px; font-size: 0.82rem; }
+        footer strong { color: rgba(255,255,255,0.9); }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        footer a:hover { color: #38bdf8; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 10px; }
+
+        /* ===== PRINT ===== */
+        @media print {
+            header, nav, .side-col, .region-bar, .mode-tabs, .calc-btn, .print-btn, .buy-links, footer, .examples-section, .faq-section { display: none !important; }
+            body { background: white; }
+            .page-wrap { grid-template-columns: 1fr; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ddd; }
+            .result-pass, .result-fail, .result-warn { border-width: 1px; }
+            @page { margin: 15mm; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-logo">⚡</div>
+    <h1>Voltage Drop Calculator</h1>
+    <p>Single Phase · Three Phase · DC · Series Runs · Motor Starting</p>
+    <p style="margin-top:10px;font-size:0.82rem;opacity:0.7;">🇦🇺 AS/NZS 3000 &amp; AS 3008 &nbsp;·&nbsp; 🇺🇸 NEC / AWG &nbsp;·&nbsp; 🇮🇳 IS 732 &nbsp;·&nbsp; 🇿🇦 SANS 10142</p>
+</header>
+
+<nav>
+    <a href="#calculator" class="active">Calculator</a>
+    <a href="#worked-examples">Worked Examples</a>
+    <a href="#faq">FAQ</a>
+    <a href="#what-is-voltage-drop">Guide</a>
+    <a href="https://lighttools.com.au" target="_blank">More Tools ↗</a>
+</nav>
+
+<div class="page-wrap">
+
+    <!-- ===== MAIN COLUMN ===== -->
+    <div class="main-col" id="calculator">
+
+        <div class="card">
+            <div class="card-title">⚡ Voltage Drop Calculator</div>
+
+            <!-- Region Toggle -->
+            <div style="margin-bottom:14px;">
+                <label style="font-size:0.78rem;font-weight:600;color:#718096;display:block;margin-bottom:6px;">REGION</label>
+                <div class="region-bar">
+                    <button class="region-btn active" id="region-btn-au" onclick="setRegion('AU')">🇦🇺 Australia</button>
+                    <button class="region-btn" id="region-btn-us" onclick="setRegion('US')">🇺🇸 United States</button>
+                    <button class="region-btn" id="region-btn-in" onclick="setRegion('IN')">🇮🇳 India</button>
+                    <button class="region-btn" id="region-btn-za" onclick="setRegion('ZA')">🇿🇦 South Africa</button>
+                </div>
+            </div>
+
+            <!-- Mode Tabs -->
+            <div class="mode-tabs">
+                <button class="mode-tab active" id="tab-1ph" onclick="setMode('1ph')">Single Phase AC</button>
+                <button class="mode-tab" id="tab-3ph" onclick="setMode('3ph')">Three Phase AC</button>
+                <button class="mode-tab" id="tab-dc" onclick="setMode('dc')">DC Circuit</button>
+                <button class="mode-tab" id="tab-series" onclick="setMode('series')">Series Runs</button>
+                <button class="mode-tab" id="tab-motor" onclick="setMode('motor')">Motor Starting</button>
+                <button class="mode-tab" id="tab-cablesize" onclick="setMode('cablesize')">⚡ Cable Sizer (AS3008)</button>
+            </div>
+
+            <!-- ===== SINGLE PHASE / THREE PHASE / DC FORM ===== -->
+            <div id="form-standard">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Supply Voltage <span id="voltage-hint">(V)</span></label>
+                        <input type="number" id="voltage" value="230" min="1">
+                    </div>
+                    <div class="field">
+                        <label>Load Type</label>
+                        <select id="load-type" onchange="updateLoadType()">
+                            <option value="watts">Watts (W)</option>
+                            <option value="amps">Current (A)</option>
+                        </select>
+                    </div>
+                    <div class="field" id="load-field">
+                        <label id="load-label">Load <span>(W)</span></label>
+                        <input type="number" id="load" value="2000" min="0.1" step="any">
+                    </div>
+                    <div class="field" id="pf-field">
+                        <label>Power Factor <span>(0.1–1.0)</span></label>
+                        <input type="number" id="power-factor" value="0.9" min="0.1" max="1" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label>One-Way Cable Length <span>(m)</span></label>
+                        <input type="number" id="length" value="30" min="0.1" step="any">
+                    </div>
+                    <div class="field">
+                        <label id="cable-label">Cable Size</label>
+                        <select id="cable-size"></select>
+                    </div>
+                    <div class="field">
+                        <label>Max Allowable Drop <span>(%)</span></label>
+                        <input type="number" id="max-drop-pct" value="5" min="0.1" max="20" step="0.5">
+                    </div>
+                    <div class="field">
+                        <label>Cable Material</label>
+                        <div class="radio-group" style="padding-top:4px;">
+                            <label class="radio-label"><input type="radio" name="material" value="copper" checked> Copper</label>
+                            <label class="radio-label"><input type="radio" name="material" value="aluminium"> Aluminium</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="calc-btn" onclick="calculate()">Calculate Voltage Drop</button>
+            </div>
+
+            <!-- ===== SERIES RUNS FORM ===== -->
+            <div id="form-series" style="display:none;">
+                <p style="font-size:0.85rem;color:#718096;margin-bottom:14px;">Enter each cable run in order. Voltage drop is calculated cumulatively — e.g. lighting circuits with multiple sub-branches.</p>
+                <div class="run-header">
+                    <span>Run</span><span>Length (m)</span><span>Load (A)</span><span>Cable Size</span><span></span>
+                </div>
+                <div class="series-runs" id="series-runs-list"></div>
+                <button class="add-run-btn" onclick="addSeriesRun()">+ Add Cable Run</button>
+                <div class="form-grid" style="margin-top:16px;">
+                    <div class="field">
+                        <label>Supply Voltage <span id="series-voltage-hint">(V)</span></label>
+                        <input type="number" id="series-voltage" value="230" min="1">
+                    </div>
+                    <div class="field">
+                        <label>Max Allowable Drop <span>(%)</span></label>
+                        <input type="number" id="series-max-drop" value="5" min="0.1" max="20" step="0.5">
+                    </div>
+                    <div class="field">
+                        <label>Cable Material</label>
+                        <div class="radio-group" style="padding-top:4px;">
+                            <label class="radio-label"><input type="radio" name="series-material" value="copper" checked> Copper</label>
+                            <label class="radio-label"><input type="radio" name="series-material" value="aluminium"> Aluminium</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="calc-btn" onclick="calculateSeries()">Calculate Series Runs</button>
+            </div>
+
+            <!-- ===== MOTOR STARTING FORM ===== -->
+            <div id="form-motor" style="display:none;">
+                <p style="font-size:0.85rem;color:#718096;margin-bottom:14px;">Calculates voltage drop during motor starting inrush. Checks compliance with supply authority limits.</p>
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Supply Voltage <span>(V)</span></label>
+                        <input type="number" id="motor-voltage" value="400" min="1">
+                    </div>
+                    <div class="field">
+                        <label>Motor Full Load Current <span>(A)</span></label>
+                        <input type="number" id="motor-flc" value="15" min="0.1" step="any">
+                    </div>
+                    <div class="field">
+                        <label>Starting Current Multiplier</label>
+                        <select id="motor-start-type">
+                            <option value="7">DOL — 7× FLC (typical)</option>
+                            <option value="6">DOL — 6× FLC (conservative)</option>
+                            <option value="3">Star-Delta — 3× FLC</option>
+                            <option value="2.5">Soft Starter — 2.5× FLC</option>
+                            <option value="1.5">VFD — 1.5× FLC</option>
+                            <option value="custom">Custom multiplier</option>
+                        </select>
+                    </div>
+                    <div class="field" id="motor-custom-field" style="display:none;">
+                        <label>Custom Multiplier <span>(×FLC)</span></label>
+                        <input type="number" id="motor-custom-mult" value="5" min="1" max="15" step="0.5">
+                    </div>
+                    <div class="field">
+                        <label>Power Factor During Starting <span>(typ. 0.3–0.5)</span></label>
+                        <input type="number" id="motor-start-pf" value="0.4" min="0.1" max="1" step="0.05">
+                    </div>
+                    <div class="field">
+                        <label>One-Way Cable Length <span>(m)</span></label>
+                        <input type="number" id="motor-length" value="40" min="0.1" step="any">
+                    </div>
+                    <div class="field">
+                        <label>Cable Size</label>
+                        <select id="motor-cable-size"></select>
+                    </div>
+                    <div class="field">
+                        <label>Cable Material</label>
+                        <div class="radio-group" style="padding-top:4px;">
+                            <label class="radio-label"><input type="radio" name="motor-material" value="copper" checked> Copper</label>
+                            <label class="radio-label"><input type="radio" name="motor-material" value="aluminium"> Aluminium</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Max Starting VD <span>(%)</span></label>
+                        <input type="number" id="motor-max-drop" value="15" min="1" max="30" step="0.5">
+                        <small style="color:#718096;font-size:0.75rem;">Typical limit: 10–15%. Check with supply authority.</small>
+                    </div>
+                </div>
+                <button class="calc-btn" onclick="calculateMotor()">Calculate Motor Starting VD</button>
+            </div>
+
+            <!-- ===== CABLE SIZER FORM ===== -->
+            <div id="form-cablesize" style="display:none;">
+                <p style="font-size:0.85rem;color:#718096;margin-bottom:14px;">Full cable sizing to AS/NZS 3008.1.1. Enter your load and installation details — the calculator finds the minimum cable that satisfies both current rating (with derating) and voltage drop.</p>
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Phase</label>
+                        <select id="cs-phase" onchange="updateCsPhase()">
+                            <option value="1ph">Single Phase AC (230V)</option>
+                            <option value="3ph">Three Phase AC (400V)</option>
+                            <option value="dc">DC</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Supply Voltage <span id="cs-voltage-hint">(V)</span></label>
+                        <input type="number" id="cs-voltage" value="230" min="1">
+                    </div>
+                    <div class="field">
+                        <label>Load Rating Type</label>
+                        <select id="cs-load-type" onchange="updateCsLoadType()">
+                            <option value="amps">Current (A)</option>
+                            <option value="watts">Watts (W)</option>
+                            <option value="kw">Kilowatts (kW)</option>
+                            <option value="kva">kVA</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label id="cs-load-label">Load Current <span>(A)</span></label>
+                        <input type="number" id="cs-load" value="20" min="0.1" step="any">
+                    </div>
+                    <div class="field" id="cs-pf-field" style="display:none;">
+                        <label>Power Factor <span>(0.1–1.0)</span></label>
+                        <input type="number" id="cs-pf" value="0.9" min="0.1" max="1" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label>One-Way Cable Length <span>(m)</span></label>
+                        <input type="number" id="cs-length" value="30" min="0.1" step="any">
+                    </div>
+                    <div class="field">
+                        <label>Max Allowable Voltage Drop <span>(%)</span></label>
+                        <input type="number" id="cs-max-drop" value="5" min="0.1" max="20" step="0.5">
+                    </div>
+                    <div class="field">
+                        <label>Insulation Type</label>
+                        <select id="cs-insulation">
+                            <option value="pvc">PVC (V-90) — 75°C max</option>
+                            <option value="xlpe">XLPE (X-90) — 90°C max</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Conductor Material</label>
+                        <select id="cs-conductor">
+                            <option value="copper">Copper</option>
+                            <option value="aluminium">Aluminium (≥16 mm² only)</option>
+                        </select>
+                    </div>
+                    <div class="field full">
+                        <label>Installation Method</label>
+                        <select id="cs-install">
+                            <option value="conduit_air">In conduit — in air (most common)</option>
+                            <option value="clipped">Clipped direct to surface / on perforated tray</option>
+                            <option value="free_air">Open — in free air (touching)</option>
+                            <option value="buried_direct">Buried direct in ground</option>
+                            <option value="conduit_buried">In conduit — buried in ground</option>
+                            <option value="trunking">In enclosed trunking / cable duct</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Circuits Grouped Together</label>
+                        <select id="cs-groups">
+                            <option value="1">1 circuit — no derating</option>
+                            <option value="2">2 circuits — ×0.80</option>
+                            <option value="3">3 circuits — ×0.70</option>
+                            <option value="4">4 circuits — ×0.65</option>
+                            <option value="5">5 circuits — ×0.60</option>
+                            <option value="6">6 circuits — ×0.57</option>
+                            <option value="7">7 circuits — ×0.54</option>
+                            <option value="8">8 circuits — ×0.52</option>
+                            <option value="9">9 circuits — ×0.50</option>
+                            <option value="10">10 circuits — ×0.48</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Ambient Temperature <span>(°C)</span></label>
+                        <select id="cs-temp">
+                            <option value="20">20°C</option>
+                            <option value="25">25°C</option>
+                            <option value="30">30°C</option>
+                            <option value="35">35°C</option>
+                            <option value="40" selected>40°C — standard AU</option>
+                            <option value="45">45°C</option>
+                            <option value="50">50°C</option>
+                            <option value="55">55°C</option>
+                            <option value="60">60°C</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="calc-btn" onclick="calculateCableSize()" style="background:linear-gradient(135deg,#0f766e,#0d9488);">⚡ Size the Cable</button>
+                <div id="cs-results" style="display:none;margin-top:20px;"></div>
+            </div>
+        </div>
+
+        <!-- ===== RESULTS PANEL ===== -->
+        <div class="card result-hidden" id="results-panel">
+            <div class="results-header">
+                <div class="card-title" id="results-title">📊 Results</div>
+                <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+            </div>
+            <div id="results-content"></div>
+        </div>
+
+        <!-- ===== CABLE COMPARISON TABLE ===== -->
+        <div class="card result-hidden" id="comparison-panel">
+            <div class="card-title">📋 Cable Size Comparison</div>
+            <p style="font-size:0.82rem;color:#718096;margin-bottom:10px;">All common cable sizes for your circuit. Blue row = minimum recommended size.</p>
+            <div style="overflow-x:auto;">
+                <table class="cable-table" id="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Cable</th>
+                            <th>VD (V)</th>
+                            <th>VD (%)</th>
+                            <th>Ampacity (A)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparison-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== WORKED EXAMPLES ===== -->
+        <div class="examples-section" id="worked-examples">
+            <div class="section-heading">📐 Worked Examples</div>
+
+            <div class="example-card">
+                <span class="example-tag">SINGLE PHASE AC</span>
+                <h3>House circuit: 2.4kW air conditioner, 25m from switchboard</h3>
+                <p><strong>Scenario:</strong> A 2,400W split-system air conditioner is installed 25 metres from the main switchboard. Supply is 230V single phase. Cable is 2.5mm² copper TPS in conduit. Power factor 0.95.</p>
+                <div class="example-steps">
+                    <p><strong>Step 1 — Find current:</strong> I = P / (V × PF) = 2,400 / (230 × 0.95) = <strong>10.98 A</strong></p>
+                    <p><strong>Step 2 — Apply formula:</strong> VD = 2 × L × I × ρ / A = 2 × 25 × 10.98 × 0.0175 / 2.5</p>
+                    <p><strong>Step 3 — Calculate:</strong> VD = 2 × 25 × 10.98 × 0.007 = <strong>3.84 V</strong></p>
+                    <p><strong>Step 4 — Check %:</strong> VD% = 3.84 / 230 × 100 = <strong>1.67%</strong></p>
+                    <p class="step-result">✅ PASS — 1.67% is well within the AS/NZS 3000 limit of 5%. 2.5mm² is adequate.</p>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <span class="example-tag">THREE PHASE AC</span>
+                <h3>Factory sub-board: 22kW motor, 80m cable run</h3>
+                <p><strong>Scenario:</strong> A 22kW three-phase motor is supplied from a sub-board 80 metres away. Supply is 400V three phase. Cable is 6mm² copper. Full load current is 40A. Power factor 0.86.</p>
+                <div class="example-steps">
+                    <p><strong>Step 1 — Formula for 3-phase:</strong> VD = √3 × L × I × ρ / A</p>
+                    <p><strong>Step 2 — Calculate:</strong> VD = 1.732 × 80 × 40 × 0.0175 / 6 = <strong>16.13 V</strong></p>
+                    <p><strong>Step 3 — Check %:</strong> VD% = 16.13 / 400 × 100 = <strong>4.03%</strong></p>
+                    <p class="step-result">⚠️ BORDERLINE — 4.03% is within 5% but tight. Consider upgrading to 10mm² (VD = 2.42%) for any future load growth.</p>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <span class="example-tag">DC CIRCUIT</span>
+                <h3>Solar battery system: 48V DC, 60A, 12m cable run</h3>
+                <p><strong>Scenario:</strong> A 48V DC solar battery system feeds an inverter 12 metres away. The battery cable carries 60A and is 16mm² copper. Maximum allowable voltage drop is 3%.</p>
+                <div class="example-steps">
+                    <p><strong>Step 1 — DC uses same formula as single phase:</strong> VD = 2 × L × I × ρ / A</p>
+                    <p><strong>Step 2 — Calculate:</strong> VD = 2 × 12 × 60 × 0.0175 / 16 = <strong>1.58 V</strong></p>
+                    <p><strong>Step 3 — Check %:</strong> VD% = 1.58 / 48 × 100 = <strong>3.28%</strong></p>
+                    <p class="step-result">⚠️ SLIGHTLY OVER 3% — Upgrade to 25mm² (VD = 1.01V, 2.10%) to meet the 3% design limit.</p>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <span class="example-tag">MOTOR STARTING</span>
+                <h3>DOL motor start: 15kW, checking inrush voltage drop</h3>
+                <p><strong>Scenario:</strong> A 15kW DOL motor (full load current 28A) starts on a 400V three-phase circuit. Cable is 6mm² copper, 30m long. DOL starting current is 7× FLC = 196A. Max allowable starting VD is 15%.</p>
+                <div class="example-steps">
+                    <p><strong>Normal running VD:</strong> VD = 1.732 × 30 × 28 × 0.0175 / 6 = <strong>4.24 V (1.06%)</strong></p>
+                    <p><strong>Starting VD (196A):</strong> VD = 1.732 × 30 × 196 × 0.0175 / 6 = <strong>29.7 V (7.42%)</strong></p>
+                    <p><strong>Check ampacity:</strong> 6mm² copper rated approx. 38A — adequate for 28A FLC with 1.35× headroom.</p>
+                    <p class="step-result">✅ PASS — 7.42% starting VD is within the 15% limit. However, check that other sensitive equipment on the same supply is not affected by the momentary dip.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== FAQ ===== -->
+        <div class="faq-section" id="faq">
+            <div class="section-heading">❓ Frequently Asked Questions</div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What is voltage drop? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Voltage drop is the reduction in voltage that occurs as electrical current flows through a conductor. Every cable has resistance, and when current flows through that resistance, some voltage is lost as heat. The greater the current, the longer the cable run, and the smaller the cable cross-section, the more voltage is lost. Excessive voltage drop causes equipment to run below its rated voltage, which can shorten equipment life and increase energy consumption.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What is the maximum allowed voltage drop in Australia? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Under AS/NZS 3000 (Australian Wiring Rules), the maximum allowable voltage drop from the point of supply to any point in the installation is <strong>5% of the nominal supply voltage</strong>. For a 230V single phase circuit, that is 11.5V. For a 400V three phase circuit, that is 20V. Many designers aim for 3% or less for longer runs or sensitive equipment. Always check the equipment manufacturer's specifications as some equipment (particularly VFDs and UPS systems) specify tighter limits.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    How do I calculate voltage drop? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <strong>Single Phase AC and DC:</strong> VD = 2 × L × I × ρ / A<br><br>
+                    <strong>Three Phase AC:</strong> VD = √3 × L × I × ρ / A<br><br>
+                    Where: L = one-way cable length (metres), I = current (amps), ρ = resistivity (0.0175 Ω·mm²/m for copper, 0.028 for aluminium), A = cable cross-sectional area (mm²). The factor of 2 in single phase accounts for the active and neutral conductors — current travels down and back. In three phase, √3 (≈1.732) is used instead because the three phases partially cancel each other out.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Why does voltage drop matter for motors? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Motors are particularly sensitive to voltage drop because motor torque varies with the <em>square</em> of voltage. A 10% voltage drop causes approximately 19% reduction in starting torque. This can cause motors to fail to start under load, stall during operation, or draw excessive current leading to overheating. AS/NZS 3000 requires voltage drop during motor starting to not cause malfunction of other connected equipment — typically limiting starting VD to 10–15%.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What is the difference between copper and aluminium cable voltage drop? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Copper has a resistivity (ρ) of 0.0175 Ω·mm²/m while aluminium has ρ = 0.028 Ω·mm²/m — about 60% higher. This means aluminium produces about 60% more voltage drop than copper of the same cross-section. To match a copper cable's voltage drop, aluminium needs to be approximately 1.6× the cross-section. However, aluminium is cheaper and lighter, making it preferred for large service mains and overhead lines.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What is ampacity and why does it matter? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Ampacity (current-carrying capacity) is the maximum continuous current a cable can carry without overheating. It is determined by the cable's cross-section, insulation rating, installation method (in conduit, clipped, buried etc.) and ambient temperature. A cable must be sized for BOTH adequate ampacity (to carry the current safely) AND acceptable voltage drop (to deliver the correct voltage). Often voltage drop is the more limiting factor for long cable runs.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What voltage drop limits apply in the United States (NEC)? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    The National Electrical Code (NEC) does not mandate a specific voltage drop limit, but NEC 210.19(A) and 215.2(A) include informational notes recommending that voltage drop not exceed 3% for branch circuits and 5% total from service to outlet. Many utility companies and designers use 3% as a practical limit. US circuits typically use 120V (single phase, two-wire) or 240V (split-phase) for residential and 208V or 480V for commercial/industrial three-phase.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    What does "one-way length" mean in voltage drop calculations? <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    One-way length is the distance from the supply point to the load — i.e., the length of cable from the switchboard or distribution board to the socket outlet, light fitting, or piece of equipment. The voltage drop formula multiplies this by 2 (for single phase/DC) because current must travel TO the load and then RETURN via the neutral or negative conductor. Always measure the actual cable route length, not the straight-line distance.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ARTICLE ===== -->
+        <div class="article-section card" id="what-is-voltage-drop" style="margin-top:20px;">
+            <h2>What Is Voltage Drop? A Complete Guide for Electricians and Engineers</h2>
+
+            <p>Voltage drop is one of the most fundamental concepts in electrical installation design. Whether you're wiring a house, sizing cables for an industrial motor, or designing a solar battery system, understanding and calculating voltage drop correctly is essential for safe and compliant electrical installations.</p>
+
+            <h3>The Physics of Voltage Drop</h3>
+            <p>Every conductor — whether copper or aluminium — has electrical resistance. When current flows through a resistance, energy is lost as heat, and the voltage at the far end of the cable is lower than at the source. This reduction in voltage is what we call voltage drop.</p>
+            <p>The relationship is described by Ohm's Law: <strong>V = I × R</strong>, where V is the voltage drop in volts, I is the current in amps, and R is the total resistance of the cable in ohms. For a two-wire circuit (active and neutral, or positive and negative), the total resistance is twice the resistance of a single conductor, which is why the factor of 2 appears in the standard formula.</p>
+
+            <div class="formula">Single Phase AC / DC: VD = 2 × L × I × ρ / A<br>Three Phase AC: VD = √3 × L × I × ρ / A</div>
+
+            <h3>Resistivity Values</h3>
+            <table>
+                <thead><tr><th>Material</th><th>Resistivity ρ (Ω·mm²/m)</th><th>Relative to Copper</th></tr></thead>
+                <tbody>
+                    <tr><td>Copper</td><td>0.0175</td><td>1.0×</td></tr>
+                    <tr><td>Aluminium</td><td>0.028</td><td>1.6×</td></tr>
+                    <tr><td>Gold</td><td>0.022</td><td>1.26×</td></tr>
+                    <tr><td>Silver</td><td>0.016</td><td>0.91× (better, but too expensive)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Australian Standards for Voltage Drop</h3>
+            <p>In Australia, voltage drop limits are governed by <strong>AS/NZS 3000:2018 (Wiring Rules)</strong>, which specifies that the voltage drop from the point of supply to any point in the installation shall not exceed <strong>5% of the nominal supply voltage</strong>.</p>
+            <ul>
+                <li>230V single phase: maximum 11.5V drop</li>
+                <li>400V three phase: maximum 20V drop</li>
+                <li>Extra-low voltage (ELV) circuits (e.g. 12V, 24V): often limited to 5% which is just 0.6V or 1.2V — making cable sizing critical</li>
+            </ul>
+            <p>Many designers work to a tighter 3% limit to allow for future load growth and to account for the fact that supply voltage itself may vary ±6% from nominal. Some sensitive equipment such as variable frequency drives (VFDs) and medical equipment specify even tighter voltage tolerance.</p>
+
+            <h3>Factors Affecting Voltage Drop</h3>
+            <p>Four variables determine voltage drop: current (I), length (L), cable cross-section (A), and resistivity (ρ). Of these, the designer typically controls cable size and routing. To reduce voltage drop, you can:</p>
+            <ul>
+                <li><strong>Increase cable size</strong> — doubling the cross-section halves the voltage drop</li>
+                <li><strong>Reduce cable length</strong> — move the distribution board closer to the load where possible</li>
+                <li><strong>Reduce load current</strong> — improve power factor or reduce the load</li>
+                <li><strong>Use copper instead of aluminium</strong> — copper has 37.5% lower resistivity</li>
+                <li><strong>Run parallel cables</strong> — two cables in parallel halve the effective resistance</li>
+            </ul>
+
+            <h3>Voltage Drop vs. Ampacity — Two Separate Checks</h3>
+            <p>A common mistake is to think that a cable sized for ampacity is automatically adequate for voltage drop. This is not always the case. For long cable runs — particularly in industrial, agricultural and rural settings — voltage drop is often the <em>more limiting</em> factor than ampacity. It is essential to check both:</p>
+            <ul>
+                <li><strong>Ampacity check:</strong> Can the cable carry the load current without overheating?</li>
+                <li><strong>Voltage drop check:</strong> Is the voltage at the load end within the allowable limit?</li>
+            </ul>
+            <p>Take the larger cable size from both checks.</p>
+
+            <h3>Motor Starting Voltage Drop</h3>
+            <p>Electric motors draw a large inrush current when they start — typically 5 to 7 times their full load current for direct-on-line (DOL) starters. This inrush lasts for 2–10 seconds and causes a momentary voltage dip on the supply. The voltage drop during starting must be checked separately from running voltage drop, as the currents involved are much larger.</p>
+            <p>Starting methods and their typical current multipliers:</p>
+            <table>
+                <thead><tr><th>Starting Method</th><th>Starting Current (× FLC)</th><th>Notes</th></tr></thead>
+                <tbody>
+                    <tr><td>Direct-on-line (DOL)</td><td>6–7×</td><td>Highest inrush, simplest control</td></tr>
+                    <tr><td>Star-Delta</td><td>2–3×</td><td>Reduces starting torque too</td></tr>
+                    <tr><td>Soft Starter</td><td>2–4×</td><td>Programmable ramp time</td></tr>
+                    <tr><td>Variable Frequency Drive (VFD)</td><td>1–1.5×</td><td>Best control, highest cost</td></tr>
+                    <tr><td>Autotransformer</td><td>2–4×</td><td>Used for large motors</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Voltage Drop in DC and ELV Systems</h3>
+            <p>DC systems — including solar battery installations, EV charging systems, 12V/24V lighting, and telecommunications — can be particularly susceptible to voltage drop because the system voltage is low. A 1.2V drop on a 230V circuit is just 0.5%, but on a 12V circuit it is 10% — significant enough to cause LED lights to flicker, solar charge controllers to malfunction, or battery charging to be incomplete.</p>
+            <p>For 12V and 24V systems, it is common to design for a maximum of 2–3% voltage drop, requiring substantial cable cross-sections for high-current loads over any meaningful distance.</p>
+
+            <h3>International Standards Summary</h3>
+            <table>
+                <thead><tr><th>Region</th><th>Standard</th><th>Max VD (typical)</th></tr></thead>
+                <tbody>
+                    <tr><td>Australia / New Zealand</td><td>AS/NZS 3000</td><td>5%</td></tr>
+                    <tr><td>United States</td><td>NEC (informational note)</td><td>3% branch, 5% total</td></tr>
+                    <tr><td>India</td><td>IS 732</td><td>5% (lighting 3%)</td></tr>
+                    <tr><td>South Africa</td><td>SANS 10142</td><td>5%</td></tr>
+                    <tr><td>United Kingdom</td><td>BS 7671</td><td>3% (lighting), 5% (other)</td></tr>
+                    <tr><td>Europe</td><td>IEC 60364-5-52</td><td>3% (lighting), 5% (other)</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div><!-- /main-col -->
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="side-col">
+
+        <div class="side-card" id="side-standard">
+            <h3 id="side-standard-title">📏 AS/NZS 3000 Reference</h3>
+            <span class="standard-badge" id="side-standard-badge">AS/NZS 3000</span>
+            <p id="side-standard-text">Maximum allowable voltage drop from point of supply to any point in installation: <strong>5%</strong> of nominal voltage.</p>
+            <ul id="side-standard-list">
+                <li>230V single phase: max <strong>11.5 V</strong></li>
+                <li>400V three phase: max <strong>20 V</strong></li>
+                <li>Many designers target ≤3% for sensitive loads</li>
+                <li>ELV systems: check equipment specs</li>
+            </ul>
+        </div>
+
+        <div class="side-card">
+            <h3>📐 Cable Reference <span id="side-cable-unit">(mm²)</span></h3>
+            <table id="side-cable-table">
+                <thead><tr><th>Size</th><th>Ampacity (A)</th></tr></thead>
+                <tbody id="side-cable-body"></tbody>
+            </table>
+            <p style="font-size:0.75rem;color:#a0aec0;margin-top:8px;">Approximate values for copper in conduit, 75°C. Apply derating factors per AS/NZS 3008 for installation conditions.</p>
+        </div>
+
+        <div class="side-card">
+            <h3>🛒 Buy Cable Online</h3>
+            <div class="buy-links" id="side-buy-links"></div>
+        </div>
+
+        <div class="side-card">
+            <h3>🔧 More Free Tools</h3>
+            <div class="buy-links">
+                <a href="https://lighttools.com.au/led-strip-driver-calculator.html" class="buy-link" target="_blank">LED Strip Driver Calculator</a>
+                <a href="https://lighttools.com.au/lux-calculator.html" class="buy-link" target="_blank">Lux Calculator</a>
+                <a href="https://lighttools.com.au/garden-lighting-calculator.html" class="buy-link" target="_blank">Garden Lighting Calculator</a>
+                <a href="https://lighttools.com.au/led-strip-light-selector.html" class="buy-link" target="_blank">LED Strip Selector</a>
+            </div>
+        </div>
+
+        <div class="side-card">
+            <h3>⚡ Formula Quick Reference</h3>
+            <p style="margin-bottom:6px;"><strong>Single Phase / DC:</strong></p>
+            <code style="font-size:0.8rem;color:#0c4a6e;display:block;background:#f0f9ff;padding:8px;border-radius:6px;margin-bottom:10px;">VD = 2 × L × I × ρ / A</code>
+            <p style="margin-bottom:6px;"><strong>Three Phase:</strong></p>
+            <code style="font-size:0.8rem;color:#0c4a6e;display:block;background:#f0f9ff;padding:8px;border-radius:6px;margin-bottom:10px;">VD = √3 × L × I × ρ / A</code>
+            <p><strong>ρ (copper)</strong> = 0.0175 Ω·mm²/m</p>
+            <p><strong>ρ (aluminium)</strong> = 0.028 Ω·mm²/m</p>
+            <p><strong>√3</strong> = 1.732</p>
+        </div>
+
+    </div><!-- /side-col -->
+
+</div><!-- /page-wrap -->
+
+<footer>
+    <p><strong>Voltage Drop Calculator</strong> — voltagedrop.com.au</p>
+    <p style="margin-top:6px;">A free tool by <a href="https://lighttools.com.au" target="_blank">LightTools</a> — Free electrical and lighting calculators</p>
+    <p style="margin-top:6px;">© 2026. Results are estimates for planning only. Always consult a licensed electrician. <a href="https://lighttools.com.au/disclaimer.html" target="_blank">Disclaimer</a></p>
+    <div class="footer-links">
+        <a href="https://lighttools.com.au">LightTools Home</a>
+        <a href="https://lighttools.com.au/led-strip-driver-calculator.html">Driver Calc</a>
+        <a href="https://lighttools.com.au/lux-calculator.html">Lux Calc</a>
+        <a href="https://lighttools.com.au/garden-lighting-calculator.html">Garden Lighting</a>
+        <a href="https://lighttools.com.au/disclaimer.html">Disclaimer</a>
+    </div>
+</footer>
+
+<script>
+// ===== CONSTANTS =====
+let REGION = 'AU';
+let MODE = '1ph';
+
+const RHO_CU = 0.0175;
+const RHO_AL = 0.028;
+
+// Cable data: [label, csa_mm2, ampacity_A]
+const AU_CABLES = [
+    ['0.5 mm²', 0.5, 6],
+    ['0.75 mm²', 0.75, 9],
+    ['1.0 mm²', 1.0, 13],
+    ['1.5 mm²', 1.5, 16],
+    ['2.5 mm²', 2.5, 23],
+    ['4 mm²', 4, 30],
+    ['6 mm²', 6, 38],
+    ['10 mm²', 10, 52],
+    ['16 mm²', 16, 68],
+    ['25 mm²', 25, 89],
+    ['35 mm²', 35, 110],
+    ['50 mm²', 50, 134],
+];
+const AU_CABLES_MAIN = AU_CABLES.filter(c => c[1] >= 1.0);
+
+// AWG: [label, mm2_equiv, ampacity]
+const US_CABLES = [
+    ['AWG 14 (2.1 mm²)', 2.08, 15],
+    ['AWG 12 (3.3 mm²)', 3.31, 20],
+    ['AWG 10 (5.3 mm²)', 5.26, 30],
+    ['AWG 8 (8.4 mm²)', 8.37, 40],
+    ['AWG 6 (13.3 mm²)', 13.3, 55],
+    ['AWG 4 (21.2 mm²)', 21.15, 70],
+    ['AWG 2 (33.6 mm²)', 33.63, 90],
+    ['AWG 1/0 (53.5 mm²)', 53.49, 120],
+    ['AWG 2/0 (67.4 mm²)', 67.43, 135],
+    ['AWG 3/0 (85.0 mm²)', 85.01, 155],
+    ['AWG 4/0 (107 mm²)', 107.2, 180],
+];
+
+function getCables(allowSmall) {
+    if (REGION === 'US') return US_CABLES;
+    if (allowSmall) return AU_CABLES;
+    return AU_CABLES_MAIN;
+}
+
+function getRho() {
+    const mat = document.querySelector('input[name="material"]:checked');
+    return mat && mat.value === 'aluminium' ? RHO_AL : RHO_CU;
+}
+
+function getMotorRho() {
+    const mat = document.querySelector('input[name="motor-material"]:checked');
+    return mat && mat.value === 'aluminium' ? RHO_AL : RHO_CU;
+}
+
+function getSeriesRho() {
+    const mat = document.querySelector('input[name="series-material"]:checked');
+    return mat && mat.value === 'aluminium' ? RHO_AL : RHO_CU;
+}
+
+function getAmazonDomain() {
+    if (REGION === 'US') return 'amazon.com';
+    if (REGION === 'IN') return 'amazon.in';
+    return 'amazon.com.au';
+}
+
+function getAmazonLabel() {
+    if (REGION === 'US') return 'Amazon US';
+    if (REGION === 'IN') return 'Amazon India';
+    if (REGION === 'ZA') return 'Takealot';
+    return 'Amazon Australia';
+}
+
+function getStandardName() {
+    if (REGION === 'US') return 'NEC';
+    if (REGION === 'IN') return 'IS 732';
+    if (REGION === 'ZA') return 'SANS 10142';
+    return 'AS/NZS 3000';
+}
+
+function getDefaultVoltage1ph() {
+    if (REGION === 'US') return 120;
+    return 230;
+}
+
+function getDefault3phVoltage() {
+    if (REGION === 'US') return 208;
+    return 400;
+}
+
+// ===== REGION =====
+function setRegion(r) {
+    REGION = r;
+    ['au','us','in','za'].forEach(x => {
+        document.getElementById('region-btn-'+x).classList.toggle('active', x === r.toLowerCase());
+    });
+    populateCableSizes();
+    populateMotorCableSizes();
+    updateStandardsRef();
+    updateSideBuyLinks();
+    updateSideCableTable();
+    // Update default voltages
+    if (MODE === '1ph' || MODE === 'dc') {
+        document.getElementById('voltage').value = getDefaultVoltage1ph();
+    } else if (MODE === '3ph') {
+        document.getElementById('voltage').value = getDefault3phVoltage();
+    }
+    updateVoltageHints();
+}
+
+function updateVoltageHints() {
+    const v1 = document.getElementById('voltage-hint');
+    const v2 = document.getElementById('series-voltage-hint');
+    if (v1) v1.textContent = MODE === '3ph' ? '(V, line-to-line)' : '(V)';
+    if (v2) v2.textContent = MODE === '3ph' ? '(V, line-to-line)' : '(V)';
+}
+
+function updateStandardsRef() {
+    const name = getStandardName();
+    document.getElementById('side-standard-badge').textContent = name;
+
+    const titles = { AU: 'AS/NZS 3000 Reference', US: 'NEC Reference', IN: 'IS 732 Reference', ZA: 'SANS 10142 Reference' };
+    document.getElementById('side-standard-title').textContent = '📏 ' + (titles[REGION] || 'Standards Reference');
+
+    const texts = {
+        AU: 'Maximum allowable voltage drop from point of supply to any point in installation: <strong>5%</strong> of nominal voltage.',
+        US: 'NEC recommends maximum <strong>3%</strong> for branch circuits and <strong>5%</strong> total from service to outlet (informational notes 210.19 and 215.2).',
+        IN: 'IS 732 recommends maximum <strong>5%</strong> voltage drop (3% for lighting circuits) from the point of commencement of supply.',
+        ZA: 'SANS 10142 specifies maximum voltage drop of <strong>5%</strong> of the nominal voltage from supply point to any point in the installation.'
+    };
+    document.getElementById('side-standard-text').innerHTML = texts[REGION] || texts.AU;
+
+    const lists = {
+        AU: '<li>230V single phase: max <strong>11.5 V</strong></li><li>400V three phase: max <strong>20 V</strong></li><li>Many designers target ≤3% for sensitive loads</li><li>ELV systems: check equipment specs</li>',
+        US: '<li>120V branch circuit: max <strong>3.6 V</strong> (3%)</li><li>240V branch circuit: max <strong>7.2 V</strong> (3%)</li><li>208V three phase: max <strong>6.24 V</strong> (3%)</li><li>480V three phase: max <strong>14.4 V</strong> (3%)</li>',
+        IN: '<li>230V single phase: max <strong>11.5 V</strong> (5%)</li><li>415V three phase: max <strong>20.75 V</strong> (5%)</li><li>Lighting circuits: max <strong>3%</strong></li><li>Cable in mm², supply 230V/50Hz</li>',
+        ZA: '<li>230V single phase: max <strong>11.5 V</strong> (5%)</li><li>400V three phase: max <strong>20 V</strong> (5%)</li><li>Must use registered electrician (Dept of Labour)</li><li>Cable in mm², supply 230V/50Hz</li>'
+    };
+    document.getElementById('side-standard-list').innerHTML = lists[REGION] || lists.AU;
+}
+
+function updateSideBuyLinks() {
+    const domain = getAmazonDomain();
+    const label = getAmazonLabel();
+    const tag = REGION === 'ZA' ? '' : REGION === 'US' ? '?tag=lighttools22-20' : '?tag=lighttools-22';
+    const base = REGION === 'ZA' ? 'https://www.takealot.com/all?qsearch=electrical+cable' : `https://www.${domain}/s?k=electrical+cable${tag}`;
+
+    document.getElementById('side-buy-links').innerHTML = `
+        <a href="${base}" class="buy-link" target="_blank" rel="nofollow">🛒 Shop Cable on ${label}</a>
+        <a href="${REGION === 'ZA' ? 'https://www.takealot.com/all?qsearch=cable+connectors' : `https://www.${domain}/s?k=cable+lugs+connectors${tag}`}" class="buy-link" target="_blank" rel="nofollow">🔌 Cable Lugs &amp; Connectors</a>
+        <a href="${REGION === 'ZA' ? 'https://www.takealot.com/all?qsearch=clamp+meter' : `https://www.${domain}/s?k=clamp+meter${tag}`}" class="buy-link" target="_blank" rel="nofollow">🔧 Clamp Meters</a>
+    `;
+}
+
+function updateSideCableTable() {
+    const cables = getCables(false);
+    const isUS = REGION === 'US';
+    document.getElementById('side-cable-unit').textContent = isUS ? '(AWG)' : '(mm²)';
+    const body = document.getElementById('side-cable-body');
+    body.innerHTML = cables.map(c => `<tr><td>${c[0]}</td><td>${c[2]}A</td></tr>`).join('');
+}
+
+// ===== MODE =====
+function setMode(m) {
+    MODE = m;
+    ['1ph','3ph','dc','series','motor','cablesize'].forEach(x => {
+        document.getElementById('tab-'+x).classList.toggle('active', x === m);
+    });
+
+    document.getElementById('form-standard').style.display = (m === 'series' || m === 'motor' || m === 'cablesize') ? 'none' : 'block';
+    document.getElementById('form-series').style.display = m === 'series' ? 'block' : 'none';
+    document.getElementById('form-motor').style.display = m === 'motor' ? 'block' : 'none';
+    document.getElementById('form-cablesize').style.display = m === 'cablesize' ? 'block' : 'none';
+
+    // Update voltage defaults and labels
+    const vEl = document.getElementById('voltage');
+    const vHint = document.getElementById('voltage-hint');
+
+    if (m === '3ph') {
+        vEl.value = getDefault3phVoltage();
+        vHint.textContent = '(V, line-to-line)';
+        document.getElementById('pf-field').style.display = 'flex';
+    } else if (m === '1ph') {
+        vEl.value = getDefaultVoltage1ph();
+        vHint.textContent = '(V)';
+        document.getElementById('pf-field').style.display = 'flex';
+    } else if (m === 'dc') {
+        vEl.value = 48;
+        vHint.textContent = '(V)';
+        document.getElementById('pf-field').style.display = 'none';
+    }
+
+    // DC allows small cable sizes
+    populateCableSizes();
+
+    // Hide results
+    document.getElementById('results-panel').classList.add('result-hidden');
+    document.getElementById('comparison-panel').classList.add('result-hidden');
+}
+
+// ===== LOAD TYPE =====
+function updateLoadType() {
+    const type = document.getElementById('load-type').value;
+    const loadLabel = document.getElementById('load-label');
+    const pfField = document.getElementById('pf-field');
+    if (type === 'amps') {
+        loadLabel.innerHTML = 'Load Current <span>(A)</span>';
+        pfField.style.display = 'none';
+    } else {
+        loadLabel.innerHTML = 'Load <span>(W)</span>';
+        pfField.style.display = MODE !== 'dc' ? 'flex' : 'none';
+    }
+}
+
+// ===== POPULATE CABLE SELECTS =====
+function populateCableSizes() {
+    const allowSmall = MODE === 'dc';
+    const cables = getCables(allowSmall);
+    const sel = document.getElementById('cable-size');
+    const currentVal = sel.value;
+    sel.innerHTML = cables.map(c => `<option value="${c[1]}">${c[0]}</option>`).join('');
+    // Try to restore previous selection
+    const match = cables.find(c => String(c[1]) === currentVal);
+    if (match) sel.value = match[1];
+    else sel.selectedIndex = Math.min(4, cables.length - 1); // Default ~2.5mm² or AWG12
+}
+
+function populateMotorCableSizes() {
+    const cables = getCables(false);
+    const sel = document.getElementById('motor-cable-size');
+    sel.innerHTML = cables.map(c => `<option value="${c[1]}">${c[0]}</option>`).join('');
+    sel.selectedIndex = Math.min(4, cables.length - 1);
+}
+
+// ===== SERIES RUNS =====
+let runCount = 0;
+function addSeriesRun() {
+    runCount++;
+    const cables = getCables(false);
+    const opts = cables.map(c => `<option value="${c[1]}" ${c[1] === 2.5 ? 'selected' : ''}>${c[0]}</option>`).join('');
+    const div = document.createElement('div');
+    div.className = 'run-row';
+    div.id = 'run-' + runCount;
+    div.innerHTML = `
+        <span class="run-label">Run ${runCount}</span>
+        <input type="number" value="20" min="0.1" step="any" placeholder="m">
+        <input type="number" value="10" min="0.01" step="any" placeholder="A">
+        <select>${opts}</select>
+        <button class="remove-run" onclick="removeRun(${runCount})" title="Remove">✕</button>
+    `;
+    document.getElementById('series-runs-list').appendChild(div);
+}
+
+function removeRun(id) {
+    const el = document.getElementById('run-' + id);
+    if (el) el.remove();
+}
+
+// ===== MOTOR STARTING TYPE =====
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('motor-start-type').addEventListener('change', function() {
+        document.getElementById('motor-custom-field').style.display = this.value === 'custom' ? 'flex' : 'none';
+    });
+});
+
+// ===== CALCULATE =====
+function calculate() {
+    const V = parseFloat(document.getElementById('voltage').value);
+    const length = parseFloat(document.getElementById('length').value);
+    const loadType = document.getElementById('load-type').value;
+    const loadVal = parseFloat(document.getElementById('load').value);
+    const pfVal = parseFloat(document.getElementById('power-factor').value) || 1;
+    const csa = parseFloat(document.getElementById('cable-size').value);
+    const maxDropPct = parseFloat(document.getElementById('max-drop-pct').value);
+    const rho = getRho();
+    const matName = document.querySelector('input[name="material"]:checked').value;
+
+    if (!V || !length || !loadVal || !csa) { alert('Please fill in all fields.'); return; }
+
+    let I;
+    if (loadType === 'amps') {
+        I = loadVal;
+    } else {
+        if (MODE === 'dc') {
+            I = loadVal / V;
+        } else {
+            I = loadVal / (V * pfVal);
+        }
+    }
+
+    let vd;
+    if (MODE === '3ph') {
+        vd = Math.sqrt(3) * length * I * rho / csa;
+    } else {
+        vd = 2 * length * I * rho / csa;
+    }
+
+    const vdPct = vd / V * 100;
+    const maxDropV = V * maxDropPct / 100;
+    const receivingV = V - vd;
+
+    // Ampacity check
+    const cables = getCables(MODE === 'dc');
+    const cabEntry = cables.find(c => c[1] === csa) || [null, csa, null];
+    const ampacity = cabEntry[2];
+    const ampOk = ampacity ? I <= ampacity : null;
+
+    // Formula string
+    const factor = MODE === '3ph' ? '√3' : '2';
+    const formulaStr = `VD = ${factor} × ${length} × ${I.toFixed(2)} × ${rho} / ${csa} = ${vd.toFixed(3)} V`;
+
+    // Status
+    let statusClass, statusIcon;
+    if (vdPct > maxDropPct) {
+        statusClass = 'result-fail'; statusIcon = '❌';
+    } else if (vdPct > maxDropPct * 0.8) {
+        statusClass = 'result-warn'; statusIcon = '⚠️';
+    } else {
+        statusClass = 'result-pass'; statusIcon = '✅';
+    }
+
+    const statusMsg = vdPct > maxDropPct
+        ? `FAIL — Voltage drop exceeds ${maxDropPct}% limit. Upgrade cable size.`
+        : vdPct > maxDropPct * 0.8
+        ? `CAUTION — Within limit but consider a larger cable for future load growth.`
+        : `PASS — Voltage drop is within the ${maxDropPct}% allowable limit.`;
+
+    let ampacityHtml = '';
+    if (ampacity !== null) {
+        const aClass = ampOk ? 'ampacity-ok' : 'ampacity-warn';
+        const aIcon = ampOk ? '✅' : '❌';
+        ampacityHtml = `<div class="ampacity-box">${aIcon} <span class="${aClass}">Ampacity: ${I.toFixed(2)}A load vs ${ampacity}A cable rating</span>${!ampOk ? ' — <strong>CABLE UNDERSIZED FOR CURRENT. Increase cable size.</strong>' : ' — Adequate current-carrying capacity.'}</div>`;
+    }
+
+    document.getElementById('results-content').innerHTML = `
+        <div class="${statusClass}">
+            <div class="result-status">${statusIcon} ${statusMsg}</div>
+            <div class="result-grid">
+                <div class="result-stat"><div class="stat-label">Load Current</div><div class="stat-val">${I.toFixed(2)}<span class="stat-unit">A</span></div></div>
+                <div class="result-stat"><div class="stat-label">Voltage Drop</div><div class="stat-val">${vd.toFixed(2)}<span class="stat-unit">V</span></div></div>
+                <div class="result-stat"><div class="stat-label">Drop Percentage</div><div class="stat-val">${vdPct.toFixed(2)}<span class="stat-unit">%</span></div></div>
+                <div class="result-stat"><div class="stat-label">Receiving Voltage</div><div class="stat-val">${receivingV.toFixed(1)}<span class="stat-unit">V</span></div></div>
+                <div class="result-stat"><div class="stat-label">Max Allowed</div><div class="stat-val">${maxDropV.toFixed(1)}<span class="stat-unit">V (${maxDropPct}%)</span></div></div>
+                <div class="result-stat"><div class="stat-label">Cable / Material</div><div class="stat-val" style="font-size:0.95rem;">${cabEntry[0] || csa + ' mm²'} ${matName}</div></div>
+            </div>
+            <div class="formula-box"><code>${formulaStr}</code></div>
+            ${ampacityHtml}
+        </div>
+    `;
+
+    document.getElementById('results-panel').classList.remove('result-hidden');
+
+    // Build comparison table
+    buildComparisonTable(V, I, length, rho, maxDropPct, csa, MODE === 'dc');
+    document.getElementById('comparison-panel').classList.remove('result-hidden');
+}
+
+function buildComparisonTable(V, I, length, rho, maxDropPct, selectedCsa, allowSmall) {
+    const cables = getCables(allowSmall);
+    const factor = MODE === '3ph' ? Math.sqrt(3) : 2;
+    const maxDropV = V * maxDropPct / 100;
+    let firstPass = true;
+    let rows = '';
+    cables.forEach(c => {
+        const vd = factor * length * I * rho / c[1];
+        const pct = vd / V * 100;
+        const isSelected = c[1] === selectedCsa;
+        let status, statusClass;
+        if (pct > maxDropPct) { status = 'FAIL'; statusClass = 'fail'; }
+        else if (pct > maxDropPct * 0.8) { status = 'CAUTION'; statusClass = 'warn'; }
+        else { status = 'PASS'; statusClass = 'pass'; }
+
+        // Minimum recommended: first cable that passes
+        const isMin = firstPass && pct <= maxDropPct;
+        if (isMin) firstPass = false;
+
+        rows += `<tr class="${isMin ? 'recommended' : ''} ${isSelected ? 'selected-cable' : ''}">
+            <td>${c[0]}${isMin ? ' ⭐' : ''}</td>
+            <td>${vd.toFixed(2)} V</td>
+            <td>${pct.toFixed(2)}%</td>
+            <td>${c[2] ? c[2] + ' A' : '—'}</td>
+            <td class="${statusClass}">${status}</td>
+        </tr>`;
+    });
+    document.getElementById('comparison-tbody').innerHTML = rows;
+}
+
+// ===== CALCULATE SERIES =====
+function calculateSeries() {
+    const V = parseFloat(document.getElementById('series-voltage').value);
+    const maxDropPct = parseFloat(document.getElementById('series-max-drop').value);
+    const rho = getSeriesRho();
+    const runs = document.querySelectorAll('#series-runs-list .run-row');
+    if (runs.length === 0) { alert('Please add at least one cable run.'); return; }
+
+    let totalVd = 0;
+    let tableRows = '';
+    let runningV = V;
+
+    runs.forEach((row, idx) => {
+        const inputs = row.querySelectorAll('input');
+        const sel = row.querySelector('select');
+        const L = parseFloat(inputs[0].value);
+        const I = parseFloat(inputs[1].value);
+        const csa = parseFloat(sel.value);
+        const vd = 2 * L * I * rho / csa;
+        totalVd += vd;
+        runningV -= vd;
+        const pct = vd / V * 100;
+        tableRows += `<tr>
+            <td>Run ${idx+1}</td>
+            <td>${L} m</td>
+            <td>${I} A</td>
+            <td>${sel.options[sel.selectedIndex].text}</td>
+            <td>${vd.toFixed(2)} V</td>
+            <td>${pct.toFixed(2)}%</td>
+            <td>${runningV.toFixed(1)} V</td>
+        </tr>`;
+    });
+
+    const totalPct = totalVd / V * 100;
+    const statusClass = totalPct > maxDropPct ? 'result-fail' : totalPct > maxDropPct * 0.8 ? 'result-warn' : 'result-pass';
+    const statusIcon = totalPct > maxDropPct ? '❌' : totalPct > maxDropPct * 0.8 ? '⚠️' : '✅';
+
+    document.getElementById('results-content').innerHTML = `
+        <div class="${statusClass}">
+            <div class="result-status">${statusIcon} Total voltage drop: ${totalVd.toFixed(2)}V (${totalPct.toFixed(2)}%) — ${totalPct > maxDropPct ? 'EXCEEDS' : 'WITHIN'} ${maxDropPct}% limit</div>
+            <div class="result-grid">
+                <div class="result-stat"><div class="stat-label">Total VD</div><div class="stat-val">${totalVd.toFixed(2)}<span class="stat-unit">V</span></div></div>
+                <div class="result-stat"><div class="stat-label">Total VD %</div><div class="stat-val">${totalPct.toFixed(2)}<span class="stat-unit">%</span></div></div>
+                <div class="result-stat"><div class="stat-label">End Voltage</div><div class="stat-val">${(V - totalVd).toFixed(1)}<span class="stat-unit">V</span></div></div>
+                <div class="result-stat"><div class="stat-label">Max Allowed</div><div class="stat-val">${(V * maxDropPct / 100).toFixed(1)}<span class="stat-unit">V (${maxDropPct}%)</span></div></div>
+            </div>
+        </div>
+        <div style="overflow-x:auto;margin-top:12px;">
+            <table class="series-result-table">
+                <thead><tr><th>Run</th><th>Length</th><th>Current</th><th>Cable</th><th>VD (V)</th><th>VD (%)</th><th>End V</th></tr></thead>
+                <tbody>${tableRows}
+                <tr class="total-row"><td colspan="4">TOTAL</td><td>${totalVd.toFixed(2)} V</td><td>${totalPct.toFixed(2)}%</td><td>${(V-totalVd).toFixed(1)} V</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+
+    document.getElementById('results-panel').classList.remove('result-hidden');
+    document.getElementById('comparison-panel').classList.add('result-hidden');
+}
+
+// ===== CALCULATE MOTOR =====
+function calculateMotor() {
+    const V = parseFloat(document.getElementById('motor-voltage').value);
+    const flc = parseFloat(document.getElementById('motor-flc').value);
+    const startTypeVal = document.getElementById('motor-start-type').value;
+    const mult = startTypeVal === 'custom' ? parseFloat(document.getElementById('motor-custom-mult').value) : parseFloat(startTypeVal);
+    const startPF = parseFloat(document.getElementById('motor-start-pf').value);
+    const length = parseFloat(document.getElementById('motor-length').value);
+    const csa = parseFloat(document.getElementById('motor-cable-size').value);
+    const maxStartDrop = parseFloat(document.getElementById('motor-max-drop').value);
+    const rho = getMotorRho();
+    const matName = document.querySelector('input[name="motor-material"]:checked').value;
+
+    const startI = flc * mult;
+    const runVd = Math.sqrt(3) * length * flc * rho / csa;
+    const startVd = Math.sqrt(3) * length * startI * rho / csa;
+    const runPct = runVd / V * 100;
+    const startPct = startVd / V * 100;
+
+    // Ampacity check
+    const cables = getCables(false);
+    const cabEntry = cables.find(c => c[1] === csa) || ['—', csa, null];
+    const ampacity = cabEntry[2];
+    const ampOk = ampacity ? flc <= ampacity : null;
+
+    const statusClass = startPct > maxStartDrop ? 'result-fail' : startPct > maxStartDrop * 0.8 ? 'result-warn' : 'result-pass';
+    const statusIcon = startPct > maxStartDrop ? '❌' : startPct > maxStartDrop * 0.8 ? '⚠️' : '✅';
+    const statusMsg = startPct > maxStartDrop
+        ? `FAIL — Starting VD ${startPct.toFixed(1)}% exceeds ${maxStartDrop}% limit. Use larger cable or soft starter/VFD.`
+        : `PASS — Starting VD ${startPct.toFixed(1)}% is within the ${maxStartDrop}% limit.`;
+
+    let ampHtml = '';
+    if (ampacity) {
+        const aClass = ampOk ? 'ampacity-ok' : 'ampacity-warn';
+        ampHtml = `<div class="ampacity-box">${ampOk ? '✅' : '❌'} <span class="${aClass}">Ampacity: FLC ${flc}A vs ${ampacity}A cable rating</span> — ${ampOk ? 'Adequate for running current.' : 'CABLE UNDERSIZED. Increase cable size.'}</div>`;
+    }
+
+    document.getElementById('results-content').innerHTML = `
+        <div class="${statusClass}">
+            <div class="result-status">${statusIcon} ${statusMsg}</div>
+            <div class="result-grid">
+                <div class="result-stat"><div class="stat-label">Full Load Current</div><div class="stat-val">${flc.toFixed(1)}<span class="stat-unit">A</span></div></div>
+                <div class="result-stat"><div class="stat-label">Starting Current (${mult}× FLC)</div><div class="stat-val">${startI.toFixed(1)}<span class="stat-unit">A</span></div></div>
+                <div class="result-stat"><div class="stat-label">Running VD</div><div class="stat-val">${runVd.toFixed(2)}<span class="stat-unit">V (${runPct.toFixed(2)}%)</span></div></div>
+                <div class="result-stat"><div class="stat-label">Starting VD</div><div class="stat-val">${startVd.toFixed(2)}<span class="stat-unit">V (${startPct.toFixed(2)}%)</span></div></div>
+                <div class="result-stat"><div class="stat-label">Voltage During Start</div><div class="stat-val">${(V - startVd).toFixed(1)}<span class="stat-unit">V</span></div></div>
+                <div class="result-stat"><div class="stat-label">Max Starting VD Limit</div><div class="stat-val">${maxStartDrop}<span class="stat-unit">% (${(V*maxStartDrop/100).toFixed(1)}V)</span></div></div>
+            </div>
+            <div class="formula-box"><code>Starting VD = √3 × ${length} × ${startI.toFixed(1)} × ${rho} / ${csa} = ${startVd.toFixed(2)} V</code></div>
+            ${ampHtml}
+            <div style="background:#f8fafc;border-radius:8px;padding:12px 14px;margin-top:10px;font-size:0.83rem;color:#4a5568;">
+                <strong>💡 To reduce starting voltage drop:</strong> Use a soft starter (reduces to ~${(startPct*2.5/mult).toFixed(1)}%) or VFD (reduces to ~${(startPct*1.5/mult).toFixed(1)}%)
+            </div>
+        </div>
+    `;
+
+    document.getElementById('results-panel').classList.remove('result-hidden');
+    document.getElementById('comparison-panel').classList.add('result-hidden');
+}
+
+// ===== CABLE SIZER DATA =====
+
+// Base ampacity: copper, PVC 75°C, in conduit in air, 40°C ambient, 1 circuit
+// Based on AS/NZS 3008.1.1:2017
+const CS_CABLES = [
+    [1.0,  '1.0 mm²',   13],
+    [1.5,  '1.5 mm²',   16],
+    [2.5,  '2.5 mm²',   23],
+    [4,    '4 mm²',     30],
+    [6,    '6 mm²',     38],
+    [10,   '10 mm²',    52],
+    [16,   '16 mm²',    68],
+    [25,   '25 mm²',    89],
+    [35,   '35 mm²',   110],
+    [50,   '50 mm²',   134],
+    [70,   '70 mm²',   171],
+    [95,   '95 mm²',   207],
+    [120,  '120 mm²',  240],
+    [150,  '150 mm²',  275],
+    [185,  '185 mm²',  314],
+    [240,  '240 mm²',  372],
+];
+
+// Installation method factors relative to "in conduit, in air" base
+const CS_INSTALL = {
+    'conduit_air':    { factor: 1.00, label: 'In conduit — in air' },
+    'clipped':        { factor: 1.24, label: 'Clipped direct to surface' },
+    'free_air':       { factor: 1.40, label: 'Open — in free air' },
+    'buried_direct':  { factor: 1.30, label: 'Buried direct in ground' },
+    'conduit_buried': { factor: 1.10, label: 'In conduit — buried' },
+    'trunking':       { factor: 0.90, label: 'In enclosed trunking / duct' },
+};
+
+// Grouping derating (AS/NZS 3008 Table 22) — index 0 = 1 circuit
+const CS_GROUP = [1.00, 0.80, 0.70, 0.65, 0.60, 0.57, 0.54, 0.52, 0.50, 0.48];
+
+// Temperature derating for PVC 75°C, base 40°C (AS/NZS 3008 Table 27)
+const CS_TEMP_PVC  = {20:1.22, 25:1.15, 30:1.10, 35:1.05, 40:1.00, 45:0.94, 50:0.87, 55:0.79, 60:0.71};
+// Temperature derating for XLPE 90°C, base 40°C
+const CS_TEMP_XLPE = {20:1.15, 25:1.12, 30:1.08, 35:1.04, 40:1.00, 45:0.96, 50:0.91, 55:0.87, 60:0.82};
+
+// Standard MCB sizes (A)
+const MCB_SIZES = [6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400];
+
+// Standard cable sizes for earth lookup
+const STD_CSA = [1.0, 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
+
+function getEarthSize(activeCsa) {
+    // AS/NZS 3000:2018 Table 5.1
+    if (activeCsa <= 16) return activeCsa + ' mm²';
+    if (activeCsa <= 35) return '16 mm²';
+    const half = activeCsa / 2;
+    const next = STD_CSA.find(s => s >= half) || activeCsa;
+    return next + ' mm²';
+}
+
+function getMcbSize(loadI, deratedAmp) {
+    // Smallest MCB >= load current that also fits within derated ampacity
+    const valid = MCB_SIZES.filter(s => s >= loadI && s <= deratedAmp);
+    if (valid.length > 0) return valid[0] + 'A';
+    // Fall back to smallest MCB >= load current
+    const fallback = MCB_SIZES.find(s => s >= loadI);
+    return fallback ? fallback + 'A (verify cable ampacity)' : 'Consult engineer';
+}
+
+function getCsDeratedAmpacity(csa, installKey, groups, tempC, insulation, conductor) {
+    const base = CS_CABLES.find(c => c[0] === csa);
+    if (!base) return null;
+    if (conductor === 'aluminium' && csa < 16) return null;
+
+    let amp = base[2];
+    amp *= (CS_INSTALL[installKey] || {factor:1}).factor;
+    if (insulation === 'xlpe') amp *= 1.20;
+    if (conductor === 'aluminium') amp *= 0.76;
+    amp *= CS_GROUP[Math.min(groups - 1, 9)];
+    const tempTable = insulation === 'xlpe' ? CS_TEMP_XLPE : CS_TEMP_PVC;
+    amp *= (tempTable[tempC] || 1.00);
+    return amp;
+}
+
+function updateCsPhase() {
+    const phase = document.getElementById('cs-phase').value;
+    const vEl = document.getElementById('cs-voltage');
+    const hint = document.getElementById('cs-voltage-hint');
+    if (phase === '3ph') { vEl.value = 400; hint.textContent = '(V, line-to-line)'; }
+    else if (phase === '1ph') { vEl.value = 230; hint.textContent = '(V)'; }
+    else { vEl.value = 48; hint.textContent = '(V)'; }
+    updateCsLoadType();
+}
+
+function updateCsLoadType() {
+    const type = document.getElementById('cs-load-type').value;
+    const phase = document.getElementById('cs-phase').value;
+    const label = document.getElementById('cs-load-label');
+    const pfField = document.getElementById('cs-pf-field');
+    const labels = { amps: 'Load Current <span>(A)</span>', watts: 'Load <span>(W)</span>', kw: 'Load <span>(kW)</span>', kva: 'Apparent Power <span>(kVA)</span>' };
+    label.innerHTML = labels[type] || labels.amps;
+    pfField.style.display = (type === 'watts' || type === 'kw') && phase !== 'dc' ? 'flex' : 'none';
+}
+
+function calculateCableSize() {
+    const phase = document.getElementById('cs-phase').value;
+    const V = parseFloat(document.getElementById('cs-voltage').value);
+    const loadType = document.getElementById('cs-load-type').value;
+    const loadVal = parseFloat(document.getElementById('cs-load').value);
+    const pf = parseFloat(document.getElementById('cs-pf').value) || 0.9;
+    const length = parseFloat(document.getElementById('cs-length').value);
+    const maxDropPct = parseFloat(document.getElementById('cs-max-drop').value);
+    const installKey = document.getElementById('cs-install').value;
+    const groups = parseInt(document.getElementById('cs-groups').value);
+    const tempC = parseInt(document.getElementById('cs-temp').value);
+    const insulation = document.getElementById('cs-insulation').value;
+    const conductor = document.getElementById('cs-conductor').value;
+
+    if (!V || !loadVal || !length || V <= 0 || loadVal <= 0 || length <= 0) {
+        alert('Please enter valid values for all fields.'); return;
+    }
+
+    // Calculate load current
+    let I;
+    if (loadType === 'amps') {
+        I = loadVal;
+    } else if (loadType === 'watts') {
+        I = phase === '3ph' ? loadVal / (Math.sqrt(3) * V * pf) : loadVal / (V * pf);
+    } else if (loadType === 'kw') {
+        I = phase === '3ph' ? (loadVal * 1000) / (Math.sqrt(3) * V * pf) : (loadVal * 1000) / (V * pf);
+    } else if (loadType === 'kva') {
+        I = phase === '3ph' ? (loadVal * 1000) / (Math.sqrt(3) * V) : (loadVal * 1000) / V;
+    }
+
+    const rho = conductor === 'aluminium' ? RHO_AL : RHO_CU;
+    const factor = phase === '3ph' ? Math.sqrt(3) : 2;
+    const maxDropV = V * maxDropPct / 100;
+
+    let recommended = null;
+    let tableRows = [];
+
+    for (const cable of CS_CABLES) {
+        const csa = cable[0];
+        const label = cable[1];
+        const deratedAmp = getCsDeratedAmpacity(csa, installKey, groups, tempC, insulation, conductor);
+        if (deratedAmp === null) continue;
+
+        const vd = factor * length * I * rho / csa;
+        const vdPct = vd / V * 100;
+        const ampOk = I <= deratedAmp;
+        const vdOk = vdPct <= maxDropPct;
+
+        if (ampOk && vdOk && !recommended) recommended = { csa, label, deratedAmp, vd, vdPct };
+
+        tableRows.push({ csa, label, deratedAmp, vd, vdPct, ampOk, vdOk,
+            isRec: recommended && csa === recommended.csa });
+    }
+
+    const resultsEl = document.getElementById('cs-results');
+
+    if (!recommended) {
+        resultsEl.innerHTML = `<div class="result-fail"><div class="result-status">❌ No suitable cable found within the standard range. The load may require parallel cables or a supply upgrade.</div></div>`;
+        resultsEl.style.display = 'block';
+        return;
+    }
+
+    const installLabel = (CS_INSTALL[installKey] || {label: installKey}).label;
+    const groupFactor = CS_GROUP[Math.min(groups - 1, 9)];
+    const tempTable = insulation === 'xlpe' ? CS_TEMP_XLPE : CS_TEMP_PVC;
+    const tempFactor = tempTable[tempC] || 1.00;
+    const installFactor = (CS_INSTALL[installKey] || {factor:1}).factor;
+    const insulLabel = insulation === 'xlpe' ? 'XLPE 90°C' : 'PVC 75°C';
+    const condLabel = conductor === 'aluminium' ? 'Aluminium' : 'Copper';
+    const phaseLabel = phase === '3ph' ? '√3' : '2';
+
+    const tableHtml = `
+        <p style="font-size:0.78rem;color:#718096;margin-bottom:6px;">All cable sizes — blue row is minimum recommended:</p>
+        <div style="overflow-x:auto;">
+        <table class="cable-table">
+            <thead><tr>
+                <th>Cable</th><th>Derated (A)</th><th>VD (V)</th><th>VD (%)</th><th>Ampacity</th><th>Volt Drop</th>
+            </tr></thead>
+            <tbody>
+                ${tableRows.map(r => `
+                <tr class="${r.isRec ? 'recommended' : ''}">
+                    <td>${r.label}</td>
+                    <td>${r.deratedAmp.toFixed(0)}A</td>
+                    <td>${r.vd.toFixed(2)}V</td>
+                    <td>${r.vdPct.toFixed(2)}%</td>
+                    <td class="${r.ampOk ? 'pass' : 'fail'}">${r.ampOk ? '✓' : '✗'}</td>
+                    <td class="${r.vdOk ? 'pass' : r.vdPct < maxDropPct * 1.3 ? 'warn' : 'fail'}">${r.vdOk ? '✓' : '✗'}</td>
+                </tr>`).join('')}
+            </tbody>
+        </table>
+        </div>`;
+
+    resultsEl.innerHTML = `
+        <div class="result-pass" style="margin-bottom:16px;">
+            <div class="result-status">✅ Recommended: ${recommended.label} ${condLabel} — ${insulLabel}</div>
+            <div class="result-grid">
+                <div class="result-stat"><div class="stat-label">Load Current</div><div class="stat-val">${I.toFixed(1)}<span class="stat-unit">A</span></div></div>
+                <div class="result-stat"><div class="stat-label">Derated Ampacity</div><div class="stat-val">${recommended.deratedAmp.toFixed(0)}<span class="stat-unit">A</span></div></div>
+                <div class="result-stat"><div class="stat-label">Voltage Drop</div><div class="stat-val">${recommended.vd.toFixed(2)}<span class="stat-unit">V (${recommended.vdPct.toFixed(2)}%)</span></div></div>
+                <div class="result-stat"><div class="stat-label">Earth Conductor <small style="font-weight:400;color:#718096">(AS/NZS 3000 T5.1)</small></div><div class="stat-val">${getEarthSize(recommended.csa)}</div></div>
+                <div class="result-stat"><div class="stat-label">Suggested MCB</div><div class="stat-val">${getMcbSize(I, recommended.deratedAmp)}</div></div>
+                <div class="result-stat"><div class="stat-label">Installation</div><div class="stat-val" style="font-size:0.82rem;line-height:1.3;">${installLabel}</div></div>
+            </div>
+            <div class="formula-box"><code>I = ${I.toFixed(1)}A &nbsp;|&nbsp; VD = ${phaseLabel} × ${length} × ${I.toFixed(1)} × ${rho} / ${recommended.csa} = ${recommended.vd.toFixed(2)} V</code></div>
+            <div style="background:#f0f9ff;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:0.8rem;color:#0c4a6e;">
+                <strong>Derating applied:</strong> Installation (${installLabel}) ×${installFactor.toFixed(2)} &nbsp;|&nbsp; Grouping (${groups} circuit${groups>1?'s':''}) ×${groupFactor.toFixed(2)} &nbsp;|&nbsp; Temperature (${tempC}°C) ×${tempFactor.toFixed(2)}
+            </div>
+        </div>
+        ${tableHtml}
+        <p style="font-size:0.75rem;color:#a0aec0;margin-top:10px;">Based on AS/NZS 3008.1.1:2017 and AS/NZS 3000:2018. Derating factors are approximate. Always verify with a licensed electrician. Reactance not included — consult AS/NZS 3008 for cables >50mm².</p>
+    `;
+    resultsEl.style.display = 'block';
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ===== FAQ TOGGLE =====
+function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+}
+
+// ===== INIT =====
+window.addEventListener('DOMContentLoaded', function() {
+    populateCableSizes();
+    populateMotorCableSizes();
+    updateStandardsRef();
+    updateSideBuyLinks();
+    updateSideCableTable();
+
+    // Add 3 default series runs
+    addSeriesRun();
+    addSeriesRun();
+    addSeriesRun();
+});
+</script>
+
+</body>
+</html>
